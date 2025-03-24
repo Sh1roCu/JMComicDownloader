@@ -19,14 +19,16 @@ class JMComicDownloader(Star):
     async def execute_download(self, event: AstrMessageEvent, comic_id: int):
         if len(event.get_group_id()) == 0:
             return
-        option: jmcomic.JmOption = jmcomic.create_option_by_file(JMComicDownloader.base_path + "/option.yml")
         yield event.plain_result("开始下载...")
-        result: tuple = jmcomic.download_album(comic_id, option)
-        downloader: jmcomic.JmDownloader = result[1]
-        while True:
-            time.sleep(1)
-            if downloader.all_success and os.path.exists(JMComicDownloader.base_path + "/pdf/{}.pdf".format(id)):
-                break
+        if not os.path.exists(JMComicDownloader.base_path + "/pdf/{}.pdf".format(comic_id)):
+            option: jmcomic.JmOption = jmcomic.create_option_by_file(JMComicDownloader.base_path + "/option.yml")
+            result: tuple = jmcomic.download_album(comic_id, option)
+            downloader: jmcomic.JmDownloader = result[1]
+            while True:
+                time.sleep(1)
+                if downloader.all_success and os.path.exists(
+                        JMComicDownloader.base_path + "/pdf/{}.pdf".format(comic_id)):
+                    break
         if event.get_platform_name() == "aiocqhttp":
             from astrbot.core.platform.sources.aiocqhttp.aiocqhttp_message_event import AiocqhttpMessageEvent
             assert isinstance(event, AiocqhttpMessageEvent)
@@ -37,7 +39,7 @@ class JMComicDownloader(Star):
                     {
                         "type": "file",
                         "data": {
-                            "file": JMComicDownloader.base_path + "/pdf/{}.pdf".format(id)
+                            "file": JMComicDownloader.base_path + "/pdf/{}.pdf".format(comic_id)
                         }
                     }
                 ]
