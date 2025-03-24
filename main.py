@@ -18,6 +18,7 @@ class JMComicDownloader(Star):
     async def execute_download(self, event: AstrMessageEvent, id: int):
         option: jmcomic.JmOption = jmcomic.create_option_by_file(JMComicDownloader.base_path + "/option.yml")
         result: tuple = jmcomic.download_album(id, option)
+        yield event.plain_result("开始下载...")
         downloader: jmcomic.JmDownloader = result[1]
         while True:
             if downloader.all_success and os.path.exists(JMComicDownloader.base_path + "images/{}.png".format(id)):
