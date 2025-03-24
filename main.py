@@ -17,6 +17,8 @@ class JMComicDownloader(Star):
 
     @filter.command("jm")
     async def execute_download(self, event: AstrMessageEvent, comic_id: int):
+        if len(event.get_group_id()) == 0:
+            return
         option: jmcomic.JmOption = jmcomic.create_option_by_file(JMComicDownloader.base_path + "/option.yml")
         yield event.plain_result("开始下载...")
         result: tuple = jmcomic.download_album(comic_id, option)
