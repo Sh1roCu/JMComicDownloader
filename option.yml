@@ -14,6 +14,11 @@ client:
       proxies: null
 plugins:
   after_album:
+    - plugin: img2pdf
+      kwargs:
+        pdf_dir: C:/Users/Administrator/Desktop/AstrBot-master/data/plugins/astrbot_plugin_jmcomic_downloader/pdf
+        filename_rule: Aid
+        delete_original_file: true
     - plugin: long_img
       kwargs:
         img_dir: C:/Users/Administrator/Desktop/AstrBot-master/data/plugins/astrbot_plugin_jmcomic_downloader/images

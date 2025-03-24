@@ -1,4 +1,5 @@
 import os.path
+import time
 
 import jmcomic
 
@@ -17,10 +18,26 @@ class JMComicDownloader(Star):
     @filter.command("jm")
     async def execute_download(self, event: AstrMessageEvent, id: int):
         option: jmcomic.JmOption = jmcomic.create_option_by_file(JMComicDownloader.base_path + "/option.yml")
-        result: tuple = jmcomic.download_album(id, option)
         yield event.plain_result("开始下载...")
+        result: tuple = jmcomic.download_album(id, option)
         downloader: jmcomic.JmDownloader = result[1]
         while True:
-            if downloader.all_success and os.path.exists(JMComicDownloader.base_path + "images/{}.png".format(id)):
+            time.sleep(1)
+            if downloader.all_success and os.path.exists(JMComicDownloader.base_path + "/pdf/{}.pdf".format(id)):
                 break
-        yield event.image_result(JMComicDownloader.base_path + "images/{}.png".format(id))
+        if event.get_platform_name() == "aiocqhttp":
+            from astrbot.core.platform.sources.aiocqhttp.aiocqhttp_message_event import AiocqhttpMessageEvent
+            assert isinstance(event, AiocqhttpMessageEvent)
+            client = event.bot
+            payloads = {
+                "group_id": event.get_group_id(),
+                "message": [
+                    {
+                        "type": "file",
+                        "data": {
+                            "file": JMComicDownloader.base_path + "/pdf/{}.pdf".format(id)
+                        }
+                    }
+                ]
+            }
+            await client.api.call_action('send_group_msg', **payloads)
