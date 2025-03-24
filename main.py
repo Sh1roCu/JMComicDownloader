@@ -44,4 +44,4 @@ class JMComicDownloader(Star):
                     }
                 ]
             }
-            await client.api.call_action('send_group_msg', **payloads)
+            client.api.call_action('send_group_msg', **payloads)
