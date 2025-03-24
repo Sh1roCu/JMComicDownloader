@@ -1,3 +1,17 @@
+client:
+  # postman: 请求配置
+  postman:
+    meta_data:
+      # proxies: 代理配置，默认是 system，表示使用系统代理。
+      # 以下的写法都可以:
+      # proxies: null # 不使用代理
+      # proxies: clash
+      # proxies: v2ray
+      # proxies: 127.0.0.1:7890
+      # proxies:
+      #   http: 127.0.0.1:7890
+      #   https: 127.0.0.1:7890
+      proxies: null
 plugins:
   after_album:
     - plugin: long_img

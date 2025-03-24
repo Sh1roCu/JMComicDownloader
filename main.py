@@ -20,6 +20,6 @@ class JMComicDownloader(Star):
         result: tuple = jmcomic.download_album(id, option)
         downloader: jmcomic.JmDownloader = result[1]
         while True:
-            if downloader.all_success and os.path.exists(JMComicDownloader.base_path + "images/{}.jpg".format(id)):
+            if downloader.all_success and os.path.exists(JMComicDownloader.base_path + "images/{}.png".format(id)):
                 break
-        yield event.image_result(JMComicDownloader.base_path + "images/{}.jpg".format(id))
+        yield event.image_result(JMComicDownloader.base_path + "images/{}.png".format(id))
