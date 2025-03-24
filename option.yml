@@ -2,6 +2,6 @@ plugins:
   after_album:
     - plugin: long_img
       kwargs:
-        img_dir: C:/Users/Administrator/Desktop/AstrBot-master/data/plugins/images
+        img_dir: C:/Users/Administrator/Desktop/AstrBot-master/data/plugins/astrbot_plugin_jmcomic_downloader/images
         filename_rule: Aid
         delete_original_file: true

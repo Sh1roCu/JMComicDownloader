@@ -6,7 +6,7 @@ from astrbot.api.event import filter, AstrMessageEvent
 from astrbot.api.star import Context, Star, register
 
 
-@register("JMComicDownloader", "Sh1roCu", "JM下载", "1.0.0","https://github.com/Sh1roCu/JMComicDownloader ")
+@register("astrbot_plugin_jmcomic_downloader", "Sh1roCu", "JM下载", "v1.0.0", "https://github.com/Sh1roCu/astrbot_plugin_jmcomic_downloader")
 class JMComicDownloader(Star):
     def __init__(self, context: Context):
         super().__init__(context)
