@@ -44,4 +44,5 @@ class JMComicDownloader(Star):
                     }
                 ]
             }
-            client.api.call_action('send_group_msg', **payloads)
+            yield event.plain_result("正在上传文件...")
+            await client.api.call_action('send_group_msg', **payloads)
